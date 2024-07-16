@@ -247,6 +247,9 @@
             static dispatch_once_t onceToken;
             dispatch_once(&onceToken, ^{
                 CGRect rect = CGRectMake(0, 0, mag.width, mag.height);
+                if (rect.size.height == 0 || rect.size.width == 0) {
+                    return;
+                }
                 UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
                 CGContextRef context = UIGraphicsGetCurrentContext();
                 [[UIColor colorWithWhite:1 alpha:0.8] set];

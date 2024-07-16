@@ -723,7 +723,9 @@ static void _yy_cleanupBuffer(void *userData, void *buf_data) {
     if (!hasTint && !hasMask) {
         return [UIImage imageWithCGImage:effectCGImage];
     }
-    
+    if (rect.size.height == 0 || rect.size.width == 0) {
+       return nil;
+     }
     UIGraphicsBeginImageContextWithOptions(size, opaque, scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextScaleCTM(context, 1.0, -1.0);

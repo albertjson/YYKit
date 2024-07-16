@@ -19,6 +19,9 @@ YYSYNTH_DUMMY_CLASS(UIView_YYAdd)
 @implementation UIView (YYAdd)
 
 - (UIImage *)snapshotImage {
+    if (self.bounds.size.height == 0 || self.bounds.size.width == 0) {
+       return nil;
+     }
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0);
     [self.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *snap = UIGraphicsGetImageFromCurrentImageContext();
@@ -30,6 +33,9 @@ YYSYNTH_DUMMY_CLASS(UIView_YYAdd)
     if (![self respondsToSelector:@selector(drawViewHierarchyInRect:afterScreenUpdates:)]) {
         return [self snapshotImage];
     }
+    if (self.bounds.size.height == 0 || self.bounds.size.width == 0) {
+       return nil;
+     }
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0);
     [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:afterUpdates];
     UIImage *snap = UIGraphicsGetImageFromCurrentImageContext();
